@@ -7,7 +7,8 @@ package com.fu.tantancard;
  */
 
 public class User {
-    private int photoResId;    //图片地址
+
+    private int photoResId;    //图片的资源ID
     private String name;        //名字
     private String sign;        //个性签名
 

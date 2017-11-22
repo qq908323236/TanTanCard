@@ -26,25 +26,21 @@ public class MainActivity extends AppCompatActivity {
     private CardAdapter mAdapter;
     private TextView tv_del_count;
     private TextView tv_love_count;
-    private int loveCount;
-    private int delCount;
+    private int loveCount;  //喜欢的数量
+    private int delCount;   //删除的数量
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loveCount = 0;
-        delCount = 0;
-        tv_love_count = findViewById(R.id.tv_love_count);
-        tv_love_count.setText("喜欢:" + loveCount);
-        tv_del_count = findViewById(R.id.tv_del_count);
-        tv_del_count.setText("删除:" + delCount);
+        initUI();
         mData = initData();
+        //初始化卡片的基本配置参数
         CardConfig.initConfig(this);
-        this.mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new SwipeCardLayoutManager());
         mAdapter = new CardAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
         //三步
         //1.创建ItemTuchCallBack
         CardItemTouchCallBack callBack = new CardItemTouchCallBack(mRecyclerView, mAdapter, mData);
@@ -52,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callBack);
         //3.与RecyclerView关联起来
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+    }
+
+    private void initUI() {
+        loveCount = 0;
+        delCount = 0;
+        tv_love_count = findViewById(R.id.tv_love_count);
+        tv_love_count.setText("喜欢:" + loveCount);
+        tv_del_count = findViewById(R.id.tv_del_count);
+        tv_del_count.setText("删除:" + delCount);
+        this.mRecyclerView = findViewById(R.id.recycler_view);
     }
 
     private List<User> initData() {
@@ -80,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(CardViewHolder holder, int position) {
             holder.tv_name.setText(mData.get(position).getName());
             holder.tv_sign.setText(mData.get(position).getSign());
+            //用Glide来加载图片
             Glide.with(getApplicationContext())
                     .load(mData.get(position).getPhotoResId())
                     .apply(new RequestOptions().transform(new CenterCrop()))
@@ -91,16 +98,17 @@ public class MainActivity extends AppCompatActivity {
             return mData.size();
         }
 
+        //右滑的时候调用
         public void addLoveCount() {
             loveCount++;
             tv_love_count.setText("喜欢:" + loveCount);
         }
 
+        //左滑的时候调用
         public void addDelCount(){
             delCount++;
             tv_del_count.setText("删除:" + delCount);
         }
-
 
         class CardViewHolder extends RecyclerView.ViewHolder {
 

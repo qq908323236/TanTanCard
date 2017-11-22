@@ -17,7 +17,6 @@ import java.util.List;
 public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
 
     private static final String TAG = "CardItemTouchCallBack";
-
     private RecyclerView mRecyclerView;
     private MainActivity.CardAdapter mAdapter;
     private List mDatas;
@@ -216,6 +215,7 @@ public class CardItemTouchCallBack extends ItemTouchHelper.Callback {
         }
         return super.getSwipeEscapeVelocity(defaultValue);
     }
+
 
     /**
      * 获得swipe的速度阈值

@@ -30,14 +30,6 @@ public class SwipeCardLayoutManager extends RecyclerView.LayoutManager {
         //在布局之前，将所有的子View先Detach掉，放入到Scrap缓存中
         detachAndScrapAttachedViews(recycler);
 
-        //随便拿个view，为了获得屏幕的狂高度
-//        View v = recycler.getViewForPosition(0);
-//        int screenWidth = v.getResources().getDisplayMetrics().widthPixels;
-//        int screenHeight = v.getResources().getDisplayMetrics().heightPixels;
-
-//        Log.i(TAG, "onLayoutChildren: " + screenWidth);
-//        Log.i(TAG, "onLayoutChildren: " + screenHeight);
-
         //拿到总item数量
         int itemCount = getItemCount();
         if (itemCount < 1) {//没有item当然就没必要布局了
